@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.disney_characters.databinding.CharacterFieldBinding
 import com.example.disney_characters.ui.details.adapter.fieldsItemAdapter.FieldItemsAdapter
-import com.example.disney_characters.ui.models.CharacterFieldsModel
+import com.example.disney_characters.models.CharacterFieldsModel
 
 class CharacterViewHolder(private val binding: CharacterFieldBinding) :
     RecyclerView.ViewHolder(binding.root) {

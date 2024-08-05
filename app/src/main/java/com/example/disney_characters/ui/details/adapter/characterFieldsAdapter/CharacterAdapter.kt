@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.disney_characters.databinding.CharacterFieldBinding
-import com.example.disney_characters.ui.models.CharacterFieldsModel
+import com.example.disney_characters.models.CharacterFieldsModel
 
 class CharacterAdapter : ListAdapter<CharacterFieldsModel, CharacterViewHolder>(object :
     DiffUtil.ItemCallback<CharacterFieldsModel>() {

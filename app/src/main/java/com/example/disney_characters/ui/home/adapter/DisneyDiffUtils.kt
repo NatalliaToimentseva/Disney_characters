@@ -1,7 +1,7 @@
 package com.example.disney_characters.ui.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.disney_characters.ui.models.CharacterItemModel
+import com.example.disney_characters.models.CharacterItemModel
 
 class DisneyDiffUtils : DiffUtil.ItemCallback<CharacterItemModel>() {
     override fun areItemsTheSame(

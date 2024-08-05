@@ -1,4 +1,4 @@
-package com.example.disney_characters.ui.models
+package com.example.disney_characters.models
 
 data class CharacterMainData (
     val name: String,

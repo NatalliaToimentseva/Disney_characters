@@ -11,7 +11,8 @@ import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentHomeBinding
 import com.example.disney_characters.ui.details.DetailsFragment
 import com.example.disney_characters.ui.home.adapter.DisneyAdapter
-import com.example.disney_characters.ui.models.CharacterItemModel
+import com.example.disney_characters.models.CharacterItemModel
+import com.example.disney_characters.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +41,12 @@ class HomeFragment : Fragment() {
         }
         viewModel.disneyCharactersList.observe(viewLifecycleOwner) { characters ->
             if (characters.isNotEmpty()) init(characters)
+        }
+        viewModel.error.observe(viewLifecycleOwner) { message ->
+            message?.run {
+                requireContext().toast(message)
+                viewModel.clearError()
+            }
         }
         viewModel.loadListData()
     }

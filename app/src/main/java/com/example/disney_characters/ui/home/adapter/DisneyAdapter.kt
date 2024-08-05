@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.disney_characters.databinding.DisneyListItemBinding
-import com.example.disney_characters.ui.models.CharacterItemModel
+import com.example.disney_characters.models.CharacterItemModel
 
 class DisneyAdapter(private val onClick: (id: Int) -> Unit) :
     ListAdapter<CharacterItemModel, DisneyViewHolder>(DisneyDiffUtils()) {

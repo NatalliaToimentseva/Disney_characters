@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentDetailsBinding
 import com.example.disney_characters.ui.details.adapter.characterFieldsAdapter.CharacterAdapter
-import com.example.disney_characters.ui.models.CharacterFieldsModel
-import com.squareup.picasso.Picasso
+import com.example.disney_characters.models.CharacterFieldsModel
+import com.example.disney_characters.utils.loadImg
+import com.example.disney_characters.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
-const val ID = "id"
+private const val ID = "id"
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -44,16 +45,22 @@ class DetailsFragment : Fragment() {
             binding?.run {
                 if (character != null) {
                     characterName.text = character.name
-                    if (character.imgUrl != "") {
-                        Picasso.get().load(character.imgUrl).into(characterImg)
+                    if (character.imgUrl != "" && character.imgUrl != null) {
+                        characterImg.loadImg(character.imgUrl)
                     } else {
                         characterImg.setImageResource(R.drawable.no_heroes_here)
                     }
-                    init(character.fields)
+                    displayCharacterFields(character.fields)
                 } else {
                     characterName.text = getString(R.string.error_loading_data)
                     characterImg.setImageResource(R.drawable.no_heroes_here)
                 }
+            }
+        }
+        viewModel.error.observe(viewLifecycleOwner) { message ->
+            message?.run {
+                requireContext().toast(message)
+                viewModel.clearError()
             }
         }
         arguments?.let {
@@ -64,7 +71,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun init(fields: List<CharacterFieldsModel>) {
+    private fun displayCharacterFields(fields: List<CharacterFieldsModel>) {
         val adapter = CharacterAdapter()
         binding?.run {
             rwFields.layoutManager = LinearLayoutManager(requireContext())

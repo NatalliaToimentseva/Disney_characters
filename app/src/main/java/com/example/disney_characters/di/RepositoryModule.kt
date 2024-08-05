@@ -1,7 +1,7 @@
 package com.example.disney_characters.di
 
-import com.example.disney_characters.dataSources.repository.DisneyCharactersListRetrofitRepository
-import com.example.disney_characters.ui.repository.DisneyCharactersListRepository
+import com.example.disney_characters.repository.repositoryImpl.DisneyCharactersListRetrofitRepository
+import com.example.disney_characters.repository.DisneyCharactersListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ListCharactersRepositoryModule {
+abstract class RepositoryModule {
 
     @Binds
     @Singleton

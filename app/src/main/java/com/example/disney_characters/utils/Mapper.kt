@@ -2,9 +2,9 @@ package com.example.disney_characters.utils
 
 import com.example.disney_characters.dataSources.entities.CharacterEntity
 import com.example.disney_characters.dataSources.entities.ListCharactersEntity
-import com.example.disney_characters.ui.models.CharacterItemModel
-import com.example.disney_characters.ui.models.CharacterMainData
-import com.example.disney_characters.ui.models.CharacterFieldsModel
+import com.example.disney_characters.models.CharacterItemModel
+import com.example.disney_characters.models.CharacterMainData
+import com.example.disney_characters.models.CharacterFieldsModel
 
 private const val CHARACTER_NAME = "name"
 private const val CHARACTER_IMAGE_URL = "imageUrl"
@@ -14,7 +14,7 @@ fun ListCharactersEntity.toListCharacterModel(): List<CharacterItemModel> {
     for (item in this.data) {
         characterList.add(
             CharacterItemModel(
-                id = item._id,
+                id = item.id,
                 name = item.name,
                 imageUrl = item.imageUrl
             )
