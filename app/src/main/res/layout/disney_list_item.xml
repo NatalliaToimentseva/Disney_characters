@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/disney_item"
+    android:layout_width="@dimen/dm_170"
+    android:layout_height="@dimen/dm_170"
+    android:layout_margin="@dimen/dm_10"
+    android:background="@color/secondary">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_150"
+        app:cardCornerRadius="@dimen/dm_30"
+        app:cardElevation="@dimen/zero_size"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/disney_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main"
+            android:src="@drawable/no_heroes_here" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_5"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="card_view" />
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dm_5"
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+    <TextView
+        android:id="@+id/character_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dm_10"
+        android:layout_marginStart="@dimen/dm_10"
+        android:fontFamily="@font/acme"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/space"
+        tools:text="Character Name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
