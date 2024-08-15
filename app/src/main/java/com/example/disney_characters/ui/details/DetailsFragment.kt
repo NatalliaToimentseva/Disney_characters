@@ -15,6 +15,7 @@ import com.example.disney_characters.models.CharacterFieldsModel
 import com.example.disney_characters.utils.loadImg
 import com.example.disney_characters.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 private const val ID = "id"
 
@@ -22,6 +23,7 @@ private const val ID = "id"
 class DetailsFragment : Fragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
+    private val disposable = CompositeDisposable()
     private var binding: FragmentDetailsBinding? = null
 
     override fun onCreateView(
@@ -41,27 +43,25 @@ class DetailsFragment : Fragment() {
                 } else progressBar.visibility = View.GONE
             }
         }
-        viewModel.character.observe(viewLifecycleOwner) { character ->
-            binding?.run {
-                if (character != null) {
-                    characterName.text = character.name
-                    if (character.imgUrl != "" && character.imgUrl != null) {
-                        characterImg.loadImg(character.imgUrl)
+        disposable.add(
+            viewModel.character.subscribe { character ->
+                binding?.run {
+                    if (character != null) {
+                        characterName.text = character.name
+                        if (character.imgUrl != "" && character.imgUrl != null) {
+                            characterImg.loadImg(character.imgUrl)
+                        } else {
+                            characterImg.setImageResource(R.drawable.no_heroes_here)
+                        }
+                        displayCharacterFields(character.fields)
                     } else {
+                        characterName.text = getString(R.string.error_loading_data)
                         characterImg.setImageResource(R.drawable.no_heroes_here)
                     }
-                    displayCharacterFields(character.fields)
-                } else {
-                    characterName.text = getString(R.string.error_loading_data)
-                    characterImg.setImageResource(R.drawable.no_heroes_here)
                 }
-            }
-        }
-        viewModel.error.observe(viewLifecycleOwner) { message ->
-            message?.run {
-                requireContext().toast(message)
-                viewModel.clearError()
-            }
+            })
+        viewModel.showError = { error ->
+            error.message?.let { requireContext().toast(it) }
         }
         arguments?.let {
             viewModel.getCharacter(it.getInt(ID))
@@ -69,6 +69,11 @@ class DetailsFragment : Fragment() {
         binding?.backBtn?.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 
     private fun displayCharacterFields(fields: List<CharacterFieldsModel>) {
