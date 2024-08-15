@@ -62,5 +62,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.rxandroid)
+    implementation(libs.rxjava)
+    implementation(libs.adapter.rxjava3)
 }

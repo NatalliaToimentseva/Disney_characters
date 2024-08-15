@@ -1,10 +1,14 @@
 package com.example.disney_characters.repository
 
-import com.example.disney_characters.repository.domain.Result
+import com.example.disney_characters.dataSources.entities.CharacterEntity
+import com.example.disney_characters.dataSources.entities.ListCharactersEntity
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import retrofit2.Response
 
 interface DisneyCharactersListRepository {
 
-    suspend fun getListCharacters(): Result
+    fun getListCharacters(): Observable<Response<ListCharactersEntity>>
 
-    suspend fun getCharacterById(id: Int): Result
+    fun getCharacterById(id: Int): Single<Response<CharacterEntity>>
 }

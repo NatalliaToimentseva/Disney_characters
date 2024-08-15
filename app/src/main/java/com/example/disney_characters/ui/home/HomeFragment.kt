@@ -22,6 +22,7 @@ class HomeFragment : Fragment() {
     private var binding: FragmentHomeBinding? = null
     private var adapter: DisneyAdapter? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,11 +43,8 @@ class HomeFragment : Fragment() {
         viewModel.disneyCharactersList.observe(viewLifecycleOwner) { characters ->
             if (characters.isNotEmpty()) init(characters)
         }
-        viewModel.error.observe(viewLifecycleOwner) { message ->
-            message?.run {
-                requireContext().toast(message)
-                viewModel.clearError()
-            }
+        viewModel.showError = { error ->
+            error.message?.let { requireContext().toast(it) }
         }
         viewModel.loadListData()
     }
