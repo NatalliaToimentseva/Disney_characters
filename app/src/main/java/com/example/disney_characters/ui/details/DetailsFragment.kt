@@ -5,8 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentDetailsBinding
@@ -22,6 +23,7 @@ private const val ID = "id"
 class DetailsFragment : Fragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
+    private val arguments: DetailsFragmentArgs by navArgs()
     private var binding: FragmentDetailsBinding? = null
 
     override fun onCreateView(
@@ -63,11 +65,10 @@ class DetailsFragment : Fragment() {
                 viewModel.clearError()
             }
         }
-        arguments?.let {
-            viewModel.getCharacter(it.getInt(ID))
-        }
+        viewModel.getCharacter(arguments.id)
+
         binding?.backBtn?.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
     }
 
@@ -77,14 +78,6 @@ class DetailsFragment : Fragment() {
             rwFields.layoutManager = LinearLayoutManager(requireContext())
             rwFields.adapter = adapter
             adapter.submitList(fields)
-        }
-    }
-
-    companion object {
-        fun getInstance(id: Int): DetailsFragment {
-            return DetailsFragment().apply {
-                arguments = bundleOf(ID to id)
-            }
         }
     }
 }

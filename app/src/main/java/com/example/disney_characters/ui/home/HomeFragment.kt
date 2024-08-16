@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentHomeBinding
-import com.example.disney_characters.ui.details.DetailsFragment
 import com.example.disney_characters.ui.home.adapter.DisneyAdapter
 import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.utils.toast
@@ -55,10 +54,7 @@ class HomeFragment : Fragment() {
         binding?.run {
             recycleView.layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = DisneyAdapter { id ->
-                parentFragmentManager.beginTransaction()
-                    .add(R.id.container, DetailsFragment.getInstance(id))
-                    .addToBackStack(null)
-                    .commit()
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
             }.also {
                 recycleView.adapter = it
             }
