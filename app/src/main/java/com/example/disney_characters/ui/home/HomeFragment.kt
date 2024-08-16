@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentHomeBinding
 import com.example.disney_characters.ui.home.adapter.DisneyAdapter
 import com.example.disney_characters.models.CharacterItemModel
@@ -39,7 +41,11 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.disneyCharactersList.observe(viewLifecycleOwner) { characters ->
-            if (characters.isNotEmpty()) init(characters)
+            if (characters != null) {
+                init(characters)
+            }else {
+                init(arrayListOf())
+            }
         }
         viewModel.error.observe(viewLifecycleOwner) { message ->
             message?.run {
@@ -47,14 +53,54 @@ class HomeFragment : Fragment() {
                 viewModel.clearError()
             }
         }
+        viewModel.isFavoriteList.observe(viewLifecycleOwner) { isFavoriteList ->
+            if (isFavoriteList) {
+                binding?.run {
+                    favoriteNotes.background = AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.btn_background_selected
+                    )
+                    allNotes.background = AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.btn_background_transparent
+                    )
+                }
+            }
+        }
+        viewModel.isAllList.observe(viewLifecycleOwner) { isAllList ->
+            if (isAllList) {
+                binding?.run {
+                    favoriteNotes.background = AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.btn_background_transparent
+                    )
+                    allNotes.background = AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.btn_background_selected
+                    )
+                }
+            }
+        }
         viewModel.loadListData()
+
+        binding?.allNotes?.setOnClickListener {
+            viewModel.selectAllList()
+        }
+
+        binding?.favoriteNotes?.setOnClickListener {
+            viewModel.selectFavorite()
+        }
     }
 
     private fun init(items: List<CharacterItemModel>) {
         binding?.run {
             recycleView.layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = DisneyAdapter { id ->
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(id))
+                findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToDetailsFragment(
+                        id
+                    )
+                )
             }.also {
                 recycleView.adapter = it
             }
