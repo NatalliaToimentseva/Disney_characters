@@ -4,20 +4,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.disney_characters.models.CharacterItemModel
-import com.example.disney_characters.repository.DisneyCharactersListRepository
 import com.example.disney_characters.ui.home.domain.HomeResult
+import com.example.disney_characters.ui.home.features.GetFavoriteCharactersListUseCase
+import com.example.disney_characters.ui.home.features.NetworkLoadAllCharactersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+//also used DetailsViewModel
 const val TEMP_URL =
     "https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg/revision/latest?cb=20160715191802"
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: DisneyCharactersListRepository,
-    private val getFavoriteCharactersListUseCase: GetFavoriteCharactersListUseCase
+    private val getFavoriteCharactersListUseCase: GetFavoriteCharactersListUseCase,
+    private val networkLoadAllCharactersUseCase: NetworkLoadAllCharactersUseCase
 ) : ViewModel() {
 
     val disneyCharactersList = MutableLiveData<List<CharacterItemModel>?>()
@@ -33,7 +35,9 @@ class HomeViewModel @Inject constructor(
     fun loadListData() {
         viewModelScope.launch(Dispatchers.IO) {
             isInProgress.postValue(true)
-            handleResult(repository.getListCharacters())
+            isAllList.postValue(true)
+            isFavoriteList.postValue(false)
+            handleResult(networkLoadAllCharactersUseCase.loadCharactersList())
         }
     }
 

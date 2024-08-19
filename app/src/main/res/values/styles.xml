@@ -11,4 +11,5 @@
         <item name="android:layout_height">@dimen/dm_65</item>
         <item name="android:layout_marginStart">@dimen/dm_20</item>
     </style>
+
 </resources>

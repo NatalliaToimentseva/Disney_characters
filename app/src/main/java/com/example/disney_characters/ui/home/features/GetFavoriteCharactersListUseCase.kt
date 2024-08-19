@@ -1,4 +1,4 @@
-package com.example.disney_characters.ui.home
+package com.example.disney_characters.ui.home.features
 
 import android.database.sqlite.SQLiteConstraintException
 import com.example.disney_characters.repository.CharactersDbRepository

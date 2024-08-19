@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.models.CharacterMainData
-import com.example.disney_characters.repository.DisneyCharactersListRepository
-import com.example.disney_characters.repository.domain.CharactersResult
+import com.example.disney_characters.ui.details.Domain.DetailsResult
 import com.example.disney_characters.ui.details.features.AddToFavoriteUseCase
 import com.example.disney_characters.ui.details.features.DeleteFromFavoriteUseCase
 import com.example.disney_characters.ui.details.features.GetCharacterByIdUseCase
+import com.example.disney_characters.ui.details.features.NetworkLoadCharacterUseCase
 import com.example.disney_characters.ui.home.TEMP_URL
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,10 +28,10 @@ private val mock = hashMapOf(
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val repository: DisneyCharactersListRepository,
     private val addToFavoriteUseCase: AddToFavoriteUseCase,
     private val deleteFromFavoriteUseCase: DeleteFromFavoriteUseCase,
-    private val getCharacterByIdUseCase: GetCharacterByIdUseCase
+    private val getCharacterByIdUseCase: GetCharacterByIdUseCase,
+    private val networkLoadCharacterUseCase: NetworkLoadCharacterUseCase
 ) : ViewModel() {
 
     val character = MutableLiveData<CharacterMainData?>(null)
@@ -53,12 +53,24 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
+    fun selectIsFavorite(id: Int) {
+        character.value?.let {
+            if (it.isFavorite == true) {
+                character.value = it.copy(isFavorite = false)
+                deleteFromFavorite(id)
+            } else {
+                character.value = it.copy(isFavorite = true)
+                addToFavorite(id)
+            }
+        }
+    }
+
     private fun getCharacter(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             isInProgress.postValue(true)
-            when (val result = repository.getCharacterById(id)) {
-                is CharactersResult.Success<*> -> character.postValue(result.data as CharacterMainData)
-                is CharactersResult.Error -> {
+            when (val result = networkLoadCharacterUseCase.loadCharacterById(id)) {
+                is DetailsResult.Success -> character.postValue(result.data)
+                is DetailsResult.Error -> {
                     result.throwable.message?.let { error.postValue(it) }
                     //MOCK
                     character.postValue(
@@ -72,18 +84,6 @@ class DetailsViewModel @Inject constructor(
                 }
             }
             isInProgress.postValue(false)
-        }
-    }
-
-    fun selectIsFavorite(id: Int) {
-        character.value?.let {
-            if (it.isFavorite == true) {
-                character.value = it.copy(isFavorite = false)
-                deleteFromFavorite(id)
-            } else {
-                character.value = it.copy(isFavorite = true)
-                addToFavorite(id)
-            }
         }
     }
 
