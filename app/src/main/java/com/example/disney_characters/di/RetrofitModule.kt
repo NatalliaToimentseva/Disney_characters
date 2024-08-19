@@ -1,6 +1,6 @@
 package com.example.disney_characters.di
 
-import com.example.disney_characters.dataSources.DisneyApi
+import com.example.disney_characters.dataSources.network.DisneyApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

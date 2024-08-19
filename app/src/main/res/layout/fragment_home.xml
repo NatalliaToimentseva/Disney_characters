@@ -8,6 +8,55 @@
     android:background="@color/secondary"
     tools:context=".ui.home.HomeFragment">
 
+    <ImageButton
+        android:id="@+id/all_notes"
+        style="@style/ImageButtonStyle"
+        android:layout_marginTop="@dimen/dm_40"
+        android:background="@drawable/btn_background_selected"
+        android:contentDescription="@string/all"
+        android:src="@drawable/group"
+        app:layout_constraintBottom_toTopOf="@+id/all"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/all"
+        style="@style/TextViewTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_5"
+        android:text="@string/all"
+        app:layout_constraintEnd_toEndOf="@+id/all_notes"
+        app:layout_constraintStart_toStartOf="@+id/all_notes"
+        app:layout_constraintTop_toBottomOf="@+id/all_notes" />
+
+    <ImageButton
+        android:id="@+id/favorite_notes"
+        style="@style/ImageButtonStyle"
+        android:background="@drawable/btn_background_transparent"
+        android:contentDescription="@string/like"
+        android:src="@drawable/not_like"
+        app:layout_constraintStart_toEndOf="@+id/all_notes"
+        app:layout_constraintTop_toTopOf="@+id/all_notes" />
+
+    <TextView
+        android:id="@+id/my"
+        style="@style/TextViewTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dm_5"
+        android:text="@string/my"
+        app:layout_constraintEnd_toEndOf="@+id/favorite_notes"
+        app:layout_constraintStart_toStartOf="@+id/favorite_notes"
+        app:layout_constraintTop_toBottomOf="@+id/favorite_notes" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="@dimen/zero_size"
+        android:layout_height="@dimen/zero_size"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="all, my" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_view"
         android:layout_width="@dimen/zero_size"
@@ -16,7 +65,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
     <ProgressBar
         android:id="@+id/progressBar"

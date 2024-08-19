@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextViewTextStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <style name="ImageButtonStyle">
+        <item name="android:layout_width">@dimen/dm_65</item>
+        <item name="android:layout_height">@dimen/dm_65</item>
+        <item name="android:layout_marginStart">@dimen/dm_20</item>
+    </style>
+
+</resources>

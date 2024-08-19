@@ -1,7 +1,7 @@
-package com.example.disney_characters.dataSources
+package com.example.disney_characters.dataSources.network
 
-import com.example.disney_characters.dataSources.entities.CharacterEntity
-import com.example.disney_characters.dataSources.entities.ListCharactersEntity
+import com.example.disney_characters.dataSources.network.entities.CharacterEntity
+import com.example.disney_characters.dataSources.network.entities.ListCharactersEntity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
