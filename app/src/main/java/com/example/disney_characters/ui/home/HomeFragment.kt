@@ -1,5 +1,6 @@
 package com.example.disney_characters.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,20 +10,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.disney_characters.App
 import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentHomeBinding
+import com.example.disney_characters.di.HomeViewModelProvider
 import com.example.disney_characters.ui.home.adapter.DisneyAdapter
 import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.utils.toast
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    @Inject
+    lateinit var viewModelProvider: HomeViewModelProvider
+    private val viewModel: HomeViewModel by viewModels { viewModelProvider }
     private var binding: FragmentHomeBinding? = null
     private var adapter: DisneyAdapter? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        App.appComponent?.inject(this)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,7 +51,7 @@ class HomeFragment : Fragment() {
         viewModel.disneyCharactersList.observe(viewLifecycleOwner) { characters ->
             if (characters != null) {
                 init(characters)
-            }else {
+            } else {
                 init(arrayListOf())
             }
         }

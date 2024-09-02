@@ -6,12 +6,9 @@ import com.example.disney_characters.repository.DisneyCharactersListRepository
 import com.example.disney_characters.repository.repositoryImpl.CharactersRoomRepository
 import dagger.Binds
 import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
     @Binds
