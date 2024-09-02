@@ -1,4 +1,4 @@
-package com.example.disney_characters.dataSources.entities
+package com.example.disney_characters.dataSources.network.entities
 
 import com.google.gson.annotations.SerializedName
 

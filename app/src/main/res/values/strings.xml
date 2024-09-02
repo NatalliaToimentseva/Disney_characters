@@ -2,4 +2,8 @@
     <string name="app_name">Disney_characters</string>
     <string name="back_button">back</string>
     <string name="error_loading_data">Error loading data</string>
+    <string name="like">like</string>
+    <string name="all">All</string>
+    <string name="my">My</string>
+
 </resources>

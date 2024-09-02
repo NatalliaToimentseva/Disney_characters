@@ -29,15 +29,33 @@
             android:layout_height="match_parent"
             android:src="@drawable/no_heroes_here" />
 
-        <ImageButton
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dm_20"
             android:layout_marginTop="@dimen/dm_40"
-            android:background="@null"
-            android:contentDescription="@string/back_button"
-            android:src="@drawable/back_btn" />
+            android:layout_marginEnd="@dimen/dm_20"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="@null"
+                android:contentDescription="@string/back_button"
+                android:src="@drawable/back_btn" />
+
+            <ImageButton
+                android:id="@+id/favorite"
+                android:layout_width="@dimen/dm_55"
+                android:layout_height="@dimen/dm_55"
+                android:layout_gravity="end"
+                android:background="@drawable/btn_add_to_favorite"
+                android:contentDescription="@string/like"
+                android:src="@drawable/not_like" />
+
+        </FrameLayout>
 
     </androidx.cardview.widget.CardView>
 
