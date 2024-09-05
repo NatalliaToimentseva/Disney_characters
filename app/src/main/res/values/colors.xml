@@ -6,5 +6,13 @@
     <color name="secondary">#1F265E</color>
     <color name="bgr_favorite">#9903174C</color>
     <color name="unselected">#CC586894</color>
+    <color name="bg_green">#B34CAF50</color>
+    <color name="bg_red">#B3F44336</color>
+    <color name="bg_blue">#B3215CF3</color>
+    <color name="bg_yellow">#B3FFEB3B</color>
+    <color name="text_green">#2F6F32</color>
+    <color name="text_red">#BD1003</color>
+    <color name="text_blue">#0D2B7A</color>
+    <color name="text_yellow">#B38600</color>
 
 </resources>

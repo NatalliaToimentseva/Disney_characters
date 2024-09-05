@@ -5,5 +5,9 @@
     <string name="like">like</string>
     <string name="all">All</string>
     <string name="my">My</string>
+    <string name="banner_icon">Banner icon</string>
+    <string name="banner_close">Banner close</string>
+    <string name="banner_success">Success: Character was loaded</string>
+    <string name="banner_warning">Warning: Characters is empty</string>
 
 </resources>

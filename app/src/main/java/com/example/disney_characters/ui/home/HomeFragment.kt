@@ -13,6 +13,7 @@ import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentHomeBinding
 import com.example.disney_characters.ui.home.adapter.DisneyAdapter
 import com.example.disney_characters.models.CharacterItemModel
+import com.example.disney_characters.ui.customView.ViewBanner
 import com.example.disney_characters.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,13 +44,22 @@ class HomeFragment : Fragment() {
         viewModel.disneyCharactersList.observe(viewLifecycleOwner) { characters ->
             if (characters != null) {
                 init(characters)
-            }else {
+                binding?.banner?.run {
+                    visibility = View.VISIBLE
+                    getBannerState(ViewBanner.BannerState.Success(resources.getString(R.string.banner_success)))
+                }
+            } else {
                 init(arrayListOf())
+                binding?.banner?.run {
+                    visibility = View.VISIBLE
+                    getBannerState(ViewBanner.BannerState.Warning(resources.getString(R.string.banner_warning)))
+                }
             }
         }
         viewModel.error.observe(viewLifecycleOwner) { message ->
             message?.run {
-                requireContext().toast(message)
+                binding?.banner?.visibility = View.VISIBLE
+                binding?.banner?.getBannerState(ViewBanner.BannerState.Error(message))
                 viewModel.clearError()
             }
         }
@@ -89,6 +99,10 @@ class HomeFragment : Fragment() {
 
         binding?.favoriteNotes?.setOnClickListener {
             viewModel.selectFavorite()
+        }
+
+        binding?.banner?.closeBanner {
+            binding?.banner?.visibility = View.GONE
         }
     }
 
