@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/banner_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dm_30"
+    android:padding="@dimen/dm_20">
+
+    <ImageView
+        android:id="@+id/banner_start_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dm_10"
+        android:contentDescription="@string/banner_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_error" />
+
+    <TextView
+        android:id="@+id/banner_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dm_10"
+        app:layout_constraintBottom_toBottomOf="@+id/banner_start_icon"
+        app:layout_constraintStart_toEndOf="@+id/banner_start_icon"
+        app:layout_constraintTop_toTopOf="@+id/banner_start_icon"
+        app:layout_constraintEnd_toStartOf="@+id/banner_close_icon"
+        tools:text="Error: Internal Server Error" />
+
+    <ImageButton
+        android:id="@+id/banner_close_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dm_5"
+        android:background="@null"
+        android:contentDescription="@string/banner_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/banner_message"
+        tools:src="@drawable/ic_close" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

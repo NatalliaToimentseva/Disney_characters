@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ViewBanner">
+        <attr name="bannerMessage" format="string" />
+        <attr name="bannerTextColor" format="color"/>
+        <attr name="bannerIcStart" format="reference" />
+        <attr name="bannerIcClose" format="reference" />
+        <attr name="bannerBackground" format="reference" />
+    </declare-styleable>
+
+</resources>
