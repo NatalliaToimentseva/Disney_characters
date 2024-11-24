@@ -11,10 +11,8 @@ import com.example.disney_characters.ui.details.features.DeleteFromFavoriteUseCa
 import com.example.disney_characters.ui.details.features.GetCharacterByIdUseCase
 import com.example.disney_characters.ui.details.features.NetworkLoadCharacterUseCase
 import com.example.disney_characters.ui.home.TEMP_URL
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 private val mock = hashMapOf(
     1 to CharacterItemModel(1, "Test1", TEMP_URL),
@@ -26,8 +24,7 @@ private val mock = hashMapOf(
     7 to CharacterItemModel(7, "Test7", TEMP_URL)
 )
 
-@HiltViewModel
-class DetailsViewModel @Inject constructor(
+class DetailsViewModel(
     private val addToFavoriteUseCase: AddToFavoriteUseCase,
     private val deleteFromFavoriteUseCase: DeleteFromFavoriteUseCase,
     private val getCharacterByIdUseCase: GetCharacterByIdUseCase,

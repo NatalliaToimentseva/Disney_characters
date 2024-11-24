@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp") version "1.9.10-1.0.13"
     id("androidx.navigation.safeargs")
 }
@@ -48,6 +47,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -60,8 +60,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
 
     implementation(libs.kotlinx.coroutines.android)
 

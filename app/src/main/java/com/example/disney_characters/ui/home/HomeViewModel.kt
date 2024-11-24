@@ -7,17 +7,14 @@ import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.ui.home.domain.HomeResult
 import com.example.disney_characters.ui.home.features.GetFavoriteCharactersListUseCase
 import com.example.disney_characters.ui.home.features.NetworkLoadAllCharactersUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 //also used DetailsViewModel
 const val TEMP_URL =
     "https://static.wikia.nocookie.net/disney/images/1/15/Arianna_Tangled.jpg/revision/latest?cb=20160715191802"
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel(
     private val getFavoriteCharactersListUseCase: GetFavoriteCharactersListUseCase,
     private val networkLoadAllCharactersUseCase: NetworkLoadAllCharactersUseCase
 ) : ViewModel() {

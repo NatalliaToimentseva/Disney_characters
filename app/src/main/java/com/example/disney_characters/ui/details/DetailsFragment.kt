@@ -1,5 +1,6 @@
 package com.example.disney_characters.ui.details
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,21 +10,30 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.disney_characters.App
 import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentDetailsBinding
+import com.example.disney_characters.di.DetailsViewModelProvider
+import com.example.disney_characters.di.HomeViewModelProvider
 import com.example.disney_characters.ui.details.adapter.characterFieldsAdapter.CharacterAdapter
 import com.example.disney_characters.models.CharacterFieldsModel
 import com.example.disney_characters.models.CharacterMainData
 import com.example.disney_characters.utils.loadImg
 import com.example.disney_characters.utils.toast
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
-    private val viewModel: DetailsViewModel by viewModels()
+    @Inject
+    lateinit var viewModelProvider: DetailsViewModelProvider
+    private val viewModel: DetailsViewModel by viewModels { viewModelProvider }
     private val arguments: DetailsFragmentArgs by navArgs()
     private var binding: FragmentDetailsBinding? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        App.appComponent?.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
