@@ -5,23 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentDetailsBinding
 import com.example.disney_characters.ui.details.adapter.characterFieldsAdapter.CharacterAdapter
 import com.example.disney_characters.models.CharacterFieldsModel
+import com.example.disney_characters.models.CharacterMainData
 import com.example.disney_characters.utils.loadImg
 import com.example.disney_characters.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
-
-private const val ID = "id"
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
+    private val arguments: DetailsFragmentArgs by navArgs()
     private var binding: FragmentDetailsBinding? = null
 
     override fun onCreateView(
@@ -42,20 +43,7 @@ class DetailsFragment : Fragment() {
             }
         }
         viewModel.character.observe(viewLifecycleOwner) { character ->
-            binding?.run {
-                if (character != null) {
-                    characterName.text = character.name
-                    if (character.imgUrl != "" && character.imgUrl != null) {
-                        characterImg.loadImg(character.imgUrl)
-                    } else {
-                        characterImg.setImageResource(R.drawable.no_heroes_here)
-                    }
-                    displayCharacterFields(character.fields)
-                } else {
-                    characterName.text = getString(R.string.error_loading_data)
-                    characterImg.setImageResource(R.drawable.no_heroes_here)
-                }
-            }
+            drawCharacter(character)
         }
         viewModel.error.observe(viewLifecycleOwner) { message ->
             message?.run {
@@ -63,11 +51,34 @@ class DetailsFragment : Fragment() {
                 viewModel.clearError()
             }
         }
-        arguments?.let {
-            viewModel.getCharacter(it.getInt(ID))
-        }
+        viewModel.selectCharacterLoader(arguments.id)
+
         binding?.backBtn?.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
+        }
+
+        binding?.favorite?.setOnClickListener {
+            viewModel.selectIsFavorite(arguments.id)
+        }
+    }
+
+    private fun drawCharacter(character: CharacterMainData?) {
+        binding?.run {
+            if (character != null) {
+                characterName.text = character.name
+                if (character.imgUrl != "" && character.imgUrl != null) {
+                    characterImg.loadImg(character.imgUrl)
+                } else {
+                    characterImg.setImageResource(R.drawable.no_heroes_here)
+                }
+                if (character.isFavorite == true) {
+                    favorite.setImageResource(R.drawable.like)
+                } else favorite.setImageResource(R.drawable.not_like)
+                character.fields?.let { displayCharacterFields(it) }
+            } else {
+                characterName.text = getString(R.string.error_loading_data)
+                characterImg.setImageResource(R.drawable.no_heroes_here)
+            }
         }
     }
 
@@ -77,14 +88,6 @@ class DetailsFragment : Fragment() {
             rwFields.layoutManager = LinearLayoutManager(requireContext())
             rwFields.adapter = adapter
             adapter.submitList(fields)
-        }
-    }
-
-    companion object {
-        fun getInstance(id: Int): DetailsFragment {
-            return DetailsFragment().apply {
-                arguments = bundleOf(ID to id)
-            }
         }
     }
 }

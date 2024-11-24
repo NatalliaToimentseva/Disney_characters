@@ -1,7 +1,8 @@
 package com.example.disney_characters.utils
 
-import com.example.disney_characters.dataSources.entities.CharacterEntity
-import com.example.disney_characters.dataSources.entities.ListCharactersEntity
+import com.example.disney_characters.dataSources.network.entities.CharacterEntity
+import com.example.disney_characters.dataSources.network.entities.ListCharactersEntity
+import com.example.disney_characters.dataSources.roomDB.entities.CharacterDbEntity
 import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.models.CharacterMainData
 import com.example.disney_characters.models.CharacterFieldsModel
@@ -47,6 +48,30 @@ fun CharacterEntity.toCharacterMainData(): CharacterMainData {
     return CharacterMainData(
         name = cName,
         imgUrl = url,
+        isFavorite = false,
         fields = list
     )
+}
+
+fun CharacterDbEntity.toCharacterItemModel(): CharacterItemModel {
+    return CharacterItemModel(id, name, imageUrl)
+}
+
+fun List<CharacterDbEntity>.toCharacterItemModelList(): List<CharacterItemModel> {
+    return map { dbEntity ->
+        dbEntity.toCharacterItemModel()
+    }
+}
+
+fun CharacterDbEntity.toCharacterMainData(): CharacterMainData {
+    return CharacterMainData(
+        name = this.name,
+        imgUrl = this.imageUrl,
+        isFavorite = true,
+        fields = null
+    )
+}
+
+fun CharacterItemModel.toCharacterDBEntity(): CharacterDbEntity {
+    return CharacterDbEntity(0, id, name, imageUrl)
 }

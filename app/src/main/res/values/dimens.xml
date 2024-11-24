@@ -6,8 +6,12 @@
     <dimen name="dm_30">30dp</dimen>
     <dimen name="dm_20">20dp</dimen>
     <dimen name="dm_40">40dp</dimen>
+    <dimen name="dm_55">55dp</dimen>
+    <dimen name="dm_65">65dp</dimen>
     <dimen name="dm_150">150dp</dimen>
     <dimen name="dm_170">170dp</dimen>
     <dimen name="dm_290">290dp</dimen>
+    <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_30">30sp</dimen>
+
 </resources>
