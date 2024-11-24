@@ -6,15 +6,16 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.example.disney_characters.R
 import com.example.disney_characters.databinding.ViewBannerBinding
 
 class ViewBanner(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
 
-    private val binding: ViewBannerBinding
+    private val binding: ViewBannerBinding =
+        ViewBannerBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
-        binding = ViewBannerBinding.inflate(LayoutInflater.from(context), this, true)
         context.theme.obtainStyledAttributes(attrs, R.styleable.ViewBanner, 0, 0).run {
             setBannerMessage(getString(R.styleable.ViewBanner_bannerMessage))
             setBannerTextColor(getColor(R.styleable.ViewBanner_bannerTextColor, Color.BLACK))
@@ -55,30 +56,30 @@ class ViewBanner(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
         when (state) {
             is BannerState.Success -> setBannerState(
                 state.message,
-                resources.getColor(R.color.text_green),
-                resources.getDrawable(R.drawable.ic_success),
-                resources.getDrawable(R.drawable.bg_success)
+                ContextCompat.getColor(context, R.color.text_green),
+                ContextCompat.getDrawable(context, R.drawable.ic_success),
+                ContextCompat.getDrawable(context, R.drawable.bg_success)
             )
 
             is BannerState.Error -> setBannerState(
                 state.message,
-                resources.getColor(R.color.text_red),
-                resources.getDrawable(R.drawable.ic_error),
-                resources.getDrawable(R.drawable.bg_error)
+                ContextCompat.getColor(context, R.color.text_red),
+                ContextCompat.getDrawable(context, R.drawable.ic_error),
+                ContextCompat.getDrawable(context, R.drawable.bg_error)
             )
 
             is BannerState.Info -> setBannerState(
                 state.message,
-                resources.getColor(R.color.text_blue),
-                resources.getDrawable(R.drawable.ic_info),
-                resources.getDrawable(R.drawable.bg_info)
+                ContextCompat.getColor(context, R.color.text_blue),
+                ContextCompat.getDrawable(context, R.drawable.ic_info),
+                ContextCompat.getDrawable(context, R.drawable.bg_info)
             )
 
             is BannerState.Warning -> setBannerState(
                 state.message,
-                resources.getColor(R.color.text_yellow),
-                resources.getDrawable(R.drawable.ic_warning),
-                resources.getDrawable(R.drawable.bg_warning)
+                ContextCompat.getColor(context, R.color.text_yellow),
+                ContextCompat.getDrawable(context, R.drawable.ic_warning),
+                ContextCompat.getDrawable(context, R.drawable.bg_warning)
             )
         }
     }

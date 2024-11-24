@@ -11,10 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.disney_characters.R
 import com.example.disney_characters.databinding.FragmentHomeBinding
-import com.example.disney_characters.ui.home.adapter.DisneyAdapter
 import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.ui.customView.ViewBanner
-import com.example.disney_characters.utils.toast
+import com.example.disney_characters.ui.home.adapter.DisneyAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

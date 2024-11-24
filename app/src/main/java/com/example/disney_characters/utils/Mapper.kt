@@ -1,7 +1,7 @@
 package com.example.disney_characters.utils
 
-import com.example.disney_characters.dataSources.network.entities.CharacterEntity
-import com.example.disney_characters.dataSources.network.entities.ListCharactersEntity
+import com.example.disney_characters.dataSources.network.responses.CharacterResponse
+import com.example.disney_characters.dataSources.network.responses.ListCharactersResponse
 import com.example.disney_characters.dataSources.roomDB.entities.CharacterDbEntity
 import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.models.CharacterMainData
@@ -10,7 +10,7 @@ import com.example.disney_characters.models.CharacterFieldsModel
 private const val CHARACTER_NAME = "name"
 private const val CHARACTER_IMAGE_URL = "imageUrl"
 
-fun ListCharactersEntity.toListCharacterModel(): List<CharacterItemModel> {
+fun ListCharactersResponse.toListCharacterModel(): List<CharacterItemModel> {
     val characterList = ArrayList<CharacterItemModel>()
     for (item in this.data) {
         characterList.add(
@@ -24,7 +24,7 @@ fun ListCharactersEntity.toListCharacterModel(): List<CharacterItemModel> {
     return characterList
 }
 
-fun CharacterEntity.toCharacterMainData(): CharacterMainData {
+fun CharacterResponse.toCharacterMainData(): CharacterMainData {
     val list = arrayListOf<CharacterFieldsModel>()
     var cName = ""
     var url = ""
