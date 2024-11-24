@@ -1,12 +1,12 @@
 package com.example.disney_characters.repository
 
-import com.example.disney_characters.dataSources.network.entities.CharacterEntity
-import com.example.disney_characters.dataSources.network.entities.ListCharactersEntity
+import com.example.disney_characters.dataSources.network.responses.CharacterResponse
+import com.example.disney_characters.dataSources.network.responses.ListCharactersResponse
 import retrofit2.Response
 
 interface DisneyCharactersListRepository {
 
-    suspend fun getListCharacters(): Response<ListCharactersEntity>
+    suspend fun getListCharacters(): Response<ListCharactersResponse>
 
-    suspend fun getCharacterById(id: Int): Response<CharacterEntity>
+    suspend fun getCharacterById(id: Int): Response<CharacterResponse>
 }

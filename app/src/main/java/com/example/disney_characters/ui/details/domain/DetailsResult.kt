@@ -1,4 +1,4 @@
-package com.example.disney_characters.ui.details.Domain
+package com.example.disney_characters.ui.details.domain
 
 import com.example.disney_characters.models.CharacterMainData
 

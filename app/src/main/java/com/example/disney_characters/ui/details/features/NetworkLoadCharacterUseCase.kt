@@ -1,7 +1,7 @@
 package com.example.disney_characters.ui.details.features
 
 import com.example.disney_characters.repository.DisneyCharactersListRepository
-import com.example.disney_characters.ui.details.Domain.DetailsResult
+import com.example.disney_characters.ui.details.domain.DetailsResult
 import com.example.disney_characters.utils.toCharacterMainData
 import javax.inject.Inject
 

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.disney_characters.models.CharacterItemModel
 import com.example.disney_characters.models.CharacterMainData
-import com.example.disney_characters.ui.details.Domain.DetailsResult
+import com.example.disney_characters.ui.details.domain.DetailsResult
 import com.example.disney_characters.ui.details.features.AddToFavoriteUseCase
 import com.example.disney_characters.ui.details.features.DeleteFromFavoriteUseCase
 import com.example.disney_characters.ui.details.features.GetCharacterByIdUseCase
